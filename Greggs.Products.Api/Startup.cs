@@ -1,3 +1,5 @@
+using Greggs.Products.Api.DataAccess;
+using Greggs.Products.Api.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,10 +10,16 @@ namespace Greggs.Products.Api;
 public class Startup
 {
     public void ConfigureServices(IServiceCollection services)
+
     {
+  
         services.AddControllers();
 
         services.AddSwaggerGen();
+        // Register IDataAccess<Product> with its implementation
+        services.AddScoped<IDataAccess<Product>, ProductAccess>();
+        // Register IDataAccess<Product> with its implementation
+        services.AddScoped<IDataAccess<Currency>, CurrencyAccess>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
